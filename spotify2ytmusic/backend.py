@@ -474,18 +474,19 @@ def copy_playlist(
             sys.exit(1)
         print(f"NOTE: Created playlist '{pl_name}' with ID: {ytmusic_playlist_id}")
 
-    copier(
-        iter_spotify_playlist(
-            spotify_playlist_id,
-            spotify_encoding=spotify_playlists_encoding,
-            reverse_playlist=reverse_playlist,
-        ),
-        ytmusic_playlist_id,
-        dry_run,
-        track_sleep,
-        yt_search_algo,
-        yt=yt,
-    )
+        # Moved the copier inside the if clause so that when the playlist already exists, it does nothing.
+        copier(
+            iter_spotify_playlist(
+                spotify_playlist_id,
+                spotify_encoding=spotify_playlists_encoding,
+                reverse_playlist=reverse_playlist,
+            ),
+            ytmusic_playlist_id,
+            dry_run,
+            track_sleep,
+            yt_search_algo,
+            yt=yt,
+        )
 
 
 def copy_all_playlists(
@@ -523,17 +524,18 @@ def copy_all_playlists(
                 sys.exit(1)
             print(f"NOTE: Created playlist '{pl_name}' with ID: {dst_pl_id}")
 
-        copier(
-            iter_spotify_playlist(
-                src_pl["id"],
-                spotify_encoding=spotify_playlists_encoding,
-                reverse_playlist=reverse_playlist,
-            ),
-            dst_pl_id,
-            dry_run,
-            track_sleep,
-            yt_search_algo,
-        )
+            # Moved the copier inside the if clause so that when the playlist already exists, it does nothing.
+            copier(
+                iter_spotify_playlist(
+                    src_pl["id"],
+                    spotify_encoding=spotify_playlists_encoding,
+                    reverse_playlist=reverse_playlist,
+                ),
+                dst_pl_id,
+                dry_run,
+                track_sleep,
+                yt_search_algo,
+            )
         print("\nPlaylist done!\n")
 
     print("All done!")
